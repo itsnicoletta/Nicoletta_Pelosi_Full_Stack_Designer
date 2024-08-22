@@ -74,6 +74,7 @@ img {
     border-radius: 100px;
     background: rgba(30, 30, 30, 0.2);
     backdrop-filter: blur(200px);
+    -webkit-backdrop-filter: blur(200px);
     padding: 6px 14px;
     gap: 20px;
 }
@@ -210,6 +211,7 @@ button {
     justify-content: end;
     background: rgba(30, 30, 30, 0.5);
     backdrop-filter: blur(250px);
+    -webkit-backdrop-filter: blur(250px);
     position: absolute;
     padding-right: 20px;
     padding-bottom: 20px;
@@ -291,6 +293,7 @@ button {
     position: fixed;
     background: var(--color_bg3);
     backdrop-filter: blur(200px);
+    -webkit-backdrop-filter: blur(200px);
     object-fit: cover;
 }
 
@@ -300,6 +303,7 @@ button {
     position: fixed;
     background: rgba(255, 255, 255, 0.01);
     backdrop-filter: blur(250px);
+    -webkit-backdrop-filter: blur(250px);
     object-fit: cover;
 }
 
