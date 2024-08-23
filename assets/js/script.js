@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Lazy loading per immagini
+
     document.querySelectorAll('img').forEach(img => {
         img.setAttribute('loading', 'lazy');
     });
 
-    // Lazy loading per video
     document.querySelectorAll('video[preload="none"]').forEach(video => {
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
@@ -18,44 +17,41 @@ document.addEventListener("DOMContentLoaded", function () {
         observer.observe(video);
     });
 
-    // Avvio dell'animazione di caricamento Lottie
     const logoAnimation = lottie.loadAnimation({
         container: document.getElementById('logo-animation'),
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'assets/animations/logo-animation-np.json' // Assicurati che il percorso sia corretto
+        path: 'assets/animations/logo-animation-np.json'
     });
     
-    // Quando la finestra è completamente caricata, nasconde la loading page e avvia le animazioni
     window.addEventListener("load", function () {
         const loadingPage = document.getElementById("loading-page");
 
         if (loadingPage) {
-            // Aggiungi un ritardo di 2 secondi prima di nascondere la loading page
             setTimeout(() => {
-                gsap.to(loadingPage, { opacity: 0, duration: 0.5, onComplete: () => loadingPage.style.display = 'none' });
-            }, 500); // Ritardo di 2000 ms (2 secondi)
+                gsap.to(loadingPage, {
+                    opacity: 0, duration: 0.5, onComplete: () => {
+                        loadingPage.style.display = 'none';
+                        logoAnimation.stop(); 
+                    }
+                });
+            }, 500); 
         }
 
-        // Dopo il ritardo e la scomparsa della loading page, avvia le animazioni della pagina
         startAnimations();
     });
 
     function startAnimations() {
-        // Registrazione plugin GSAP
         gsap.registerPlugin(ScrollTrigger);
-
-        // Animazione della Navbar all'apertura della pagina
         const navbar = document.getElementById("sticky_navbar");
         if (navbar) {
             gsap.fromTo(navbar,
-                { scale: 0, opacity: 0 },  // Partenza dal centro, invisibile
-                { scale: 1, opacity: 1, duration: 1, ease: 'power2.out' }  // Si espande fino a forma totale e diventa visibile
+                { scale: 0, opacity: 0 },  
+                { scale: 1, opacity: 1, duration: 1, ease: 'power2.out' }  
             );
         }
 
-        // Animazioni grafiche con loop continuo
         gsap.fromTo("#graphic1, #graphic2",
             {
                 opacity: 0,
@@ -73,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
-        // Animazione del titolo H1 nel #project-header
         gsap.fromTo("#project-header h1",
             {
                 opacity: 0,
@@ -95,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
-        // Animazione delle sezioni di project1.html
         gsap.fromTo(".first_section",
             { x: "-100%", opacity: 0 },
             {
@@ -152,13 +146,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
-        // Animazione delle forme nella sezione background
         gsap.fromTo(".shape",
             { opacity: 0, y: 100 },
             { opacity: 1, y: 0, duration: 1, ease: "power4.out" }
         );
 
-        // Animazione degli elementi .pro
         gsap.fromTo(".pro",
             {
                 opacity: 0,
@@ -179,7 +171,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         );
 
-        // Animazione dell'header con Loop
         const header = document.getElementById("header");
         const headerHover = document.getElementById("header_hover");
 
@@ -208,26 +199,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 3500);
         }
 
-        // Animazione semplificata delle card con ScrollTrigger
         gsap.utils.toArray('.card').forEach((card, i) => {
-            let direction = i % 2 === 0 ? 'left' : 'right'; // Alterna direzione
+            let direction = i % 2 === 0 ? 'left' : 'right'; 
             gsap.from(card, {
                 scrollTrigger: {
                     trigger: card,
-                    start: "top 70%", // Modificato per attivarsi più facilmente
-                    end: "bottom 10%", // Modificato per attivarsi più facilmente
+                    start: "top 70%", 
+                    end: "bottom 10%", 
                     toggleActions: "play none none reverse",
                 },
-                x: direction === 'left' ? "-50px" : "50px", // Semplificato a 50px invece di 100%
+                x: direction === 'left' ? "-50px" : "50px", 
                 opacity: 0,
-                duration: 0.8, // Ridotto il tempo per una reazione più rapida
+                duration: 0.8,
             });
         });
 
-        // Forza un refresh di ScrollTrigger dopo il caricamento della pagina
         ScrollTrigger.refresh();
 
-        // Animazione nella sezione About
         gsap.from(".titolosec", {
             y: -50,
             opacity: 0,
