@@ -1,4 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Lazy loading per immagini
+    document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('loading', 'lazy');
+    });
+
+    // Lazy loading per video
+    document.querySelectorAll('video[preload="none"]').forEach(video => {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.setAttribute('preload', 'auto');
+                    video.play();
+                    observer.unobserve(video);
+                }
+            });
+        });
+        observer.observe(video);
+    });
+
+    // Avvio dell'animazione di caricamento Lottie
+    const logoAnimation = lottie.loadAnimation({
+        container: document.getElementById('logo-animation'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'assets/animations/logo-animation-np.json' // Assicurati che il percorso sia corretto
+    });
+    
     // Quando la finestra è completamente caricata, nasconde la loading page e avvia le animazioni
     window.addEventListener("load", function () {
         const loadingPage = document.getElementById("loading-page");
