@@ -1108,6 +1108,10 @@ h2 {
         height: 250px;
     }
 
+    #bg_blur {
+        background: var(--color_bg4);
+    }
+
 }
 
 
@@ -1172,6 +1176,10 @@ h2 {
     .video2 {
         width: 280px;
         height: 200px;
+    }
+
+    p {
+        font-weight: 400;
     }
 }
 
