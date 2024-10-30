@@ -32,9 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 gsap.to(loadingPage, {
                     opacity: 0, duration: 0.5, onComplete: () => {
-                        loadingPage.style.display = 'none';
+                        if (loadingPage){
+                            loadingPage.style.display = 'none';
+                        }
                         logoAnimation.stop(); 
                     }
+                
                 });
             }, 500); 
         }
